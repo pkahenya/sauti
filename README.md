@@ -55,11 +55,11 @@ Or open [Solana Playground](https://beta.solpg.io), create an Anchor project, an
 
 ## Milestones
 
-| Milestone | Months | Outcome |
-|---|---|---|
-| 1. Live and paying | 1 to 3 | App and validation live, program on mainnet paying USDC, 2,000 contributors, 150 validated hours |
-| 2. First open release | 4 to 6 | 8,000 contributors, 600 validated hours, first release on Hugging Face, fine-tuned model with before and after error rates, one licence sale split on-chain |
-| 3. Seven languages | 7 to 9 | 20,000 contributors, 1,200 validated hours across seven language groups, second release, two paid licence deals, replication kit |
+| Milestone | Months | Funding | Outcome |
+|---|---|---|---|
+| 1. Live and paying | 1 to 3 | USD 20,000 | App and validation live, program on mainnet paying USDC, 2,000 contributors, 150 validated hours |
+| 2. First open release | 4 to 6 | USD 25,000 | 8,000 contributors, 600 validated hours, first release on Hugging Face, fine-tuned model released openly with before and after error rates, one licence sale split on-chain |
+| 3. Seven languages | 7 to 9 | USD 30,000 | 20,000 contributors, 1,200 validated hours across seven language groups, second release, two paid licence deals, replication kit |
 
 The full plan and budget are on the [project page](https://www.keeyow.com/sauti/).
 
