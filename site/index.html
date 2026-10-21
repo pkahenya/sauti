@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex">
+<title>Sauti: open voice data for Kenya</title>
+<meta name="description" content="Sauti is an open speech dataset for Kenya’s languages, built by people paid in USDC for every validated clip, with consent and origin recorded on Solana.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sauti: open voice data for Kenya">
+<meta property="og:description" content="Kenya’s languages, recorded by Kenyans, open to everyone. A Keeyo Digital Solutions project.">
+<meta property="og:url" content="https://www.keeyow.com/sauti/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FFD23F'/%3E%3Crect x='29.5' y='10' width='5' height='44' rx='2.5' fill='%23E8432A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Michroma&display=swap">
+<script>document.documentElement.classList.add("js");</script>
+<style>
+:root{
+  --sun:#FFD23F;
+  --ink:#211D5C;
+  --ink-soft:#3B3770;
+  --muted:#5A5784;
+  --paper:#FFFFFF;
+  --mist:#F3F2FA;
+  --rule:#D9D7EC;
+  --signal:#E8432A;
+  --bar:#A9A5CC;
+  --display:"Michroma","Eurostile","Microgramma",ui-sans-serif,system-ui,sans-serif;
+  --text:"Atkinson Hyperlegible",ui-sans-serif,system-ui,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none !important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--text);font-size:1.125rem;line-height:1.55}
+a{color:inherit;text-decoration-thickness:2px;text-underline-offset:3px}
+a:hover{color:var(--signal)}
+.hero a:hover,footer a:hover{color:var(--ink)}
+:focus-visible{outline:3px solid var(--signal);outline-offset:3px;border-radius:6px}
+p{margin:0 0 1em;max-width:66ch}
+h1,h2,h3{font-weight:700;color:var(--ink)}
+h2{font-size:clamp(1.75rem,1.15rem + 2vw,2.625rem);line-height:1.1;letter-spacing:-.015em;margin:0 0 20px;max-width:22ch;text-wrap:balance}
+h3{font-size:1.3125rem;line-height:1.25;margin:0 0 6px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.skip{position:absolute;left:16px;top:-60px;background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:8px;z-index:9;text-decoration:none}
+.skip:focus{top:12px;color:var(--paper)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Hero */
+.hero{background:var(--sun);padding-bottom:64px}
+.top{display:flex;align-items:center;gap:28px;padding:22px 0}
+.mark{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-size:1.375rem;letter-spacing:.02em;text-decoration:none;color:var(--ink)}
+.mark:hover{color:var(--ink)}
+.mark i{width:12px;height:12px;border-radius:50%;background:var(--signal)}
+.by{font-size:.9375rem;color:var(--ink-soft)}
+.by a{text-decoration:none}
+.by a:hover{text-decoration:underline}
+.nav{display:flex;gap:24px;list-style:none;margin:0 0 0 auto;padding:0}
+.nav a{text-decoration:none;font-size:1rem}
+.nav a:hover{color:var(--ink);text-decoration:underline}
+h1{font-size:clamp(2.5rem,1.5rem + 4.2vw,4.75rem);line-height:1.02;letter-spacing:-.02em;margin:44px 0 0;max-width:16ch;text-wrap:balance}
+.hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);grid-template-areas:"lead facts" "radio radio";column-gap:56px;align-items:end;margin-top:28px}
+.leadcol{grid-area:lead}
+.facts{grid-area:facts}
+.radio{grid-area:radio}
+.lede{font-size:1.25rem;line-height:1.5;margin:0;max-width:56ch}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-block;padding:14px 24px;border-radius:999px;font-weight:700;font-size:1.0625rem;text-decoration:none;background:var(--ink);color:var(--sun);border:2px solid var(--ink)}
+.btn:hover{background:var(--paper);color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--paper)}
+.facts{margin:0;display:grid;gap:14px;padding-left:22px;border-left:2px solid var(--ink)}
+.facts dt{font-size:.9375rem;color:var(--ink-soft)}
+.facts dd{margin:0;font-weight:700;font-size:1.1875rem;line-height:1.3}
+
+/* The dial */
+.radio{margin-top:48px;background:var(--paper);border:2px solid var(--ink);border-radius:22px;overflow:hidden}
+.dial{--i:0;--n:7;position:relative;margin:14px 14px 0;background:var(--mist);border-radius:14px}
+.js .dial{--i:6.5}
+.ticks{position:absolute;left:0;right:0;top:22px;height:16px;background:repeating-linear-gradient(to right,var(--ink) 0 1px,transparent 1px 9px);opacity:.3;pointer-events:none}
+.stations{position:relative;display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.station{position:relative;appearance:none;margin:0;border:0;background:none;cursor:pointer;font-family:var(--display);font-size:.9375rem;letter-spacing:.01em;color:var(--muted);padding:66px 4px 20px;border-radius:12px;min-height:44px}
+.station::before{content:"";position:absolute;left:50%;top:14px;width:2px;height:32px;background:var(--ink);transform:translateX(-50%)}
+.station:hover,.station[aria-checked="true"]{color:var(--ink)}
+.station:focus-visible{outline-offset:-3px}
+.needle{position:absolute;top:6px;height:50px;width:3px;left:calc((var(--i) + .5) / var(--n) * 100%);transform:translateX(-50%);background:var(--signal);border-radius:3px;pointer-events:none}
+.needle::before{content:"";position:absolute;left:50%;top:-2px;width:13px;height:13px;border-radius:50%;background:var(--signal);transform:translateX(-50%)}
+.dial.live .needle{transition:left 1.3s cubic-bezier(.2,.75,.15,1)}
+.readout{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px 28px 24px}
+.lang-name{font-family:var(--display);font-size:clamp(1.375rem,1rem + 1.4vw,2.125rem);line-height:1.2;margin:0}
+.lang-note{margin:6px 0 0;color:var(--ink-soft)}
+.tune{display:flex;gap:10px;flex:none}
+.tune button{width:48px;height:48px;border-radius:50%;border:2px solid var(--ink);background:var(--paper);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0}
+.tune button:hover{background:var(--sun)}
+.tune svg{width:18px;height:18px}
+
+/* Sections */
+main > section{padding:88px 0}
+.alt{background:var(--mist)}
+.intro{color:var(--ink-soft);margin-bottom:40px}
+.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px}
+.split h2{margin-bottom:0}
+.ticklist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 56px}
+.ticklist li{position:relative;padding-left:30px}
+.ticklist li::before{content:"";position:absolute;left:6px;top:.25em;width:3px;height:1.1em;background:var(--ink);border-radius:2px}
+.ticklist strong{display:block;font-size:1.1875rem}
+.ticklist span{color:var(--ink-soft)}
+
+/* How it works */
+.how{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:64px;align-items:start}
+.steps{list-style:none;margin:0;padding:0}
+.steps li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:0 16px;padding:22px 0;border-top:2px solid var(--rule)}
+.steps li:first-child{border-top:0;padding-top:4px}
+.steps .n{font-family:var(--display);font-size:1.25rem;line-height:1.6}
+.steps p{margin:2px 0 0;color:var(--ink-soft)}
+.receipt{position:sticky;top:28px;margin:0;background:var(--mist);padding:36px 28px;
+  -webkit-mask:radial-gradient(8px at 50% 0,#0000 98%,#000) 50% 0/22px 51% repeat-x,radial-gradient(8px at 50% 100%,#0000 98%,#000) 50% 100%/22px 51% repeat-x;
+  mask:radial-gradient(8px at 50% 0,#0000 98%,#000) 50% 0/22px 51% repeat-x,radial-gradient(8px at 50% 100%,#0000 98%,#000) 50% 100%/22px 51% repeat-x}
+.receipt figcaption{font-weight:700;font-size:1.1875rem;margin-bottom:16px}
+.receipt dl{margin:0;display:grid;gap:10px}
+.receipt .row{display:flex;align-items:baseline;gap:0}
+.receipt dt{flex:1;display:flex;align-items:baseline;color:var(--muted);font-size:1rem}
+.receipt dt::after{content:"";flex:1;min-width:16px;margin:0 10px;border-bottom:2px dotted var(--bar);transform:translateY(-.3em)}
+.receipt dd{margin:0;font-weight:700;font-size:1rem;text-align:right}
+.receipt .fp{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.receipt .note{font-size:1rem;color:var(--ink-soft);margin:20px 0 0;padding-top:16px;border-top:2px solid var(--rule)}
+
+/* Four tests */
+.tests{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px 56px}
+.tests article{border-top:3px solid var(--ink);padding-top:18px}
+.tests p{margin:0 0 .8em;color:var(--ink-soft)}
+.tests p:last-child{margin-bottom:0}
+
+/* Milestones */
+.hours{margin:0 0 8px}
+.hours figcaption{font-weight:700;margin-bottom:10px}
+.cols,.mlist{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+.plot{height:250px;padding-top:32px;display:flex;align-items:flex-end;border-bottom:1px solid var(--rule)}
+.bar{position:relative;width:24px;height:calc(var(--h) / 1200 * 100%);background:var(--ink);border-radius:4px 4px 0 0}
+.bar b{position:absolute;left:0;bottom:100%;margin-bottom:8px;white-space:nowrap;font-size:1.0625rem}
+.xl{display:block;font-size:.9375rem;color:var(--muted);padding-top:8px}
+.mlist{list-style:none;margin:28px 0 0;padding:0}
+.mlist .when{display:block;font-size:.9375rem;color:var(--muted);margin-bottom:4px}
+.mlist ul{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+.mlist ul li{position:relative;padding-left:20px;color:var(--ink-soft)}
+.mlist ul li::before{content:"";position:absolute;left:2px;top:.5em;width:8px;height:8px;border-radius:50%;background:var(--ink)}
+
+/* Budget */
+.budget{width:100%;border-collapse:collapse}
+.budget caption{text-align:left}
+.budget th,.budget td{padding:14px 12px;text-align:left;vertical-align:top;border-top:1px solid var(--rule)}
+.budget th:first-child{padding-left:0}
+.budget td:last-child{padding-right:0}
+.budget thead th{border-top:0;font-size:.9375rem;font-weight:400;color:var(--muted);padding-bottom:8px}
+.budget tbody th{font-weight:700}
+.budget .desc{display:block;font-weight:400;color:var(--ink-soft);font-size:1rem;margin-top:2px}
+.budget .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.budget .fill{display:block;height:10px;margin-top:10px;width:calc(var(--v) / 75000 * 100%);background:var(--bar);border-radius:0 4px 4px 0}
+.budget .lead .fill{background:var(--ink)}
+.budget tbody tr:hover{background:rgba(33,29,92,.05)}
+.budget tfoot th,.budget tfoot td{border-top:2px solid var(--ink);font-weight:700}
+
+/* Safeguards */
+.guards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 56px;margin:0}
+.guards dt{font-weight:700;font-size:1.1875rem;margin-bottom:4px}
+.guards dd{margin:0;color:var(--ink-soft)}
+
+/* Team */
+.team{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:64px}
+.role{color:var(--muted);margin:0 0 14px}
+.links{display:flex;gap:20px;margin-top:4px}
+.roles{list-style:none;margin:0;padding:0;display:grid;gap:18px}
+.roles strong{display:block}
+.roles span{color:var(--ink-soft)}
+
+/* On-chain */
+.chain{margin:0;display:grid;gap:16px;max-width:860px}
+.chain div{display:grid;grid-template-columns:220px minmax(0,1fr);gap:16px;padding-bottom:16px;border-bottom:1px solid var(--rule)}
+.chain dt{color:var(--muted)}
+.chain dd{margin:0;font-weight:700;overflow-wrap:anywhere}
+
+/* Footer */
+footer{background:var(--sun);padding:64px 0 40px}
+.motto{font-family:var(--display);font-size:clamp(1.75rem,1.2rem + 2.4vw,3rem);line-height:1.15;margin:0}
+.motto-en{font-size:1.25rem;margin:10px 0 40px}
+.legal{font-size:1rem;color:var(--ink-soft);margin:0 0 6px}
+
+/* Tablet */
+@media (max-width:900px){
+  .nav{display:none}
+  .hero-grid{grid-template-columns:1fr;grid-template-areas:"lead" "radio" "facts"}
+  .facts{margin-top:36px}
+  .split,.how,.team{grid-template-columns:1fr;gap:32px}
+  .receipt{position:static;max-width:480px}
+  .ticklist{grid-template-columns:1fr}
+}
+/* Phone: the dial turns vertical */
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  main > section{padding:60px 0}
+  .hero{padding-bottom:40px}
+  h1{margin-top:28px}
+  .by{display:none}
+  .radio{margin-top:36px}
+  .dial{margin:10px 10px 0}
+  .stations{grid-template-columns:1fr}
+  .station{text-align:left;padding:13px 12px 13px 78px}
+  .station::before{left:18px;top:50%;width:34px;height:2px;transform:translateY(-50%)}
+  .ticks{left:26px;right:auto;top:0;bottom:0;width:18px;height:auto;background:repeating-linear-gradient(to bottom,var(--ink) 0 1px,transparent 1px 8px)}
+  .needle{left:8px;width:56px;height:3px;top:calc((var(--i) + .5) / var(--n) * 100%);transform:translateY(-50%)}
+  .needle::before{left:auto;right:-6px;top:50%;transform:translateY(-50%)}
+  .dial.live .needle{transition:top 1.3s cubic-bezier(.2,.75,.15,1)}
+  .readout{flex-direction:column;align-items:flex-start;padding:18px 18px 20px}
+  .tests,.guards{grid-template-columns:1fr;gap:32px}
+  .cols,.mlist{gap:16px}
+  .mlist{grid-template-columns:1fr;gap:28px}
+  .budget th,.budget td{padding:12px 8px}
+  .chain div{grid-template-columns:1fr;gap:4px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .dial{--i:0}
+  .dial.live .needle{transition:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <nav class="top" aria-label="Main">
+      <a class="mark" href="#top"><i aria-hidden="true"></i>sauti</a>
+      <span class="by">by <a href="https://www.keeyow.com/">Keeyo Digital Solutions</a></span>
+      <ul class="nav">
+        <li><a href="#plan">Plan</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#solana">Solana</a></li>
+        <li><a href="#budget">Budget</a></li>
+        <li><a href="#team">Team</a></li>
+      </ul>
+    </nav>
+
+    <h1>Kenya’s languages, recorded by Kenyans, open to everyone.</h1>
+
+    <div class="hero-grid">
+      <div class="leadcol">
+        <p class="lede">Sauti pays people to record and check short voice clips in Sheng, Kikuyu, Dholuo, Luhya, Kalenjin, Somali and Kenyan English. Each validated clip earns two US cents in USDC, with its consent and origin recorded on Solana. The finished dataset is free for anyone to use.</p>
+        <div class="actions">
+          <a class="btn" href="#plan">Read the plan</a>
+          <a class="btn ghost" data-link="github" href="#" hidden>View the code on GitHub</a>
+        </div>
+      </div>
+      <dl class="facts">
+        <div><dt>Funding sought</dt><dd>USD 75,000</dd></div>
+        <div><dt>Timeline</dt><dd>Nine months, three milestones</dd></div>
+        <div><dt>Output</dt><dd>1,200 hours of open speech</dd></div>
+      </dl>
+
+    <section class="radio" aria-label="The seven language groups">
+      <div class="dial">
+        <div class="ticks" aria-hidden="true"></div>
+        <div class="stations" role="radiogroup" aria-label="Choose a language">
+          <button class="station" role="radio" aria-checked="true" tabindex="0">Sheng</button>
+          <button class="station" role="radio" aria-checked="false" tabindex="-1">Kikuyu</button>
+          <button class="station" role="radio" aria-checked="false" tabindex="-1">Dholuo</button>
+          <button class="station" role="radio" aria-checked="false" tabindex="-1">Luhya</button>
+          <button class="station" role="radio" aria-checked="false" tabindex="-1">Kalenjin</button>
+          <button class="station" role="radio" aria-checked="false" tabindex="-1">Somali</button>
+          <button class="station" role="radio" aria-checked="false" tabindex="-1">English</button>
+        </div>
+        <div class="needle" aria-hidden="true"></div>
+      </div>
+      <div class="readout">
+        <div aria-live="polite">
+          <p class="lang-name" id="lang-name">Sheng</p>
+          <p class="lang-note" id="lang-note">Nairobi’s street language, built mostly on Swahili and English and reinvented by every generation.</p>
+        </div>
+        <div class="tune">
+          <button type="button" id="prev" aria-label="Previous language"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M11.5 3.5 6 9l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button type="button" id="next" aria-label="Next language"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M6.5 3.5 12 9l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
+    </section>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section id="problem">
+    <div class="wrap split">
+      <h2>Kenya talks in layers. Speech technology hears very little of it.</h2>
+      <div>
+        <p>A matatu conductor, a Kisumu fish trader and a student’s voice note can move between Sheng, a mother tongue, Swahili and English in one sentence. Voice tools learn from recorded speech, and for most Kenyan languages the open recordings are few and mostly scripted. Sheng and everyday code-switching barely appear at all.</p>
+        <p>So call centre bots, voice search and transcription tools fail the people who would use them most. Swahili already has sizeable open collections, so Sauti starts with the languages and ways of speaking that have the least.</p>
+        <p>The people to fix this are already here. Kenya has one of Africa’s largest workforces in AI data work, much of it labelling data for products built elsewhere. Sauti points that skill at an open resource Kenya can build on.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="plan" class="alt">
+    <div class="wrap">
+      <h2>What the grant delivers</h2>
+      <ul class="ticklist">
+        <li><strong>A mobile web app</strong><span>Contributors record, transcribe and check clips from any smartphone browser. No download needed.</span></li>
+        <li><strong>An open-source Solana program</strong><span>It keeps contributor records, consent and clip fingerprints, pays rewards in USDC and splits licence revenue.</span></li>
+        <li><strong>1,200 hours of validated speech</strong><span>Across seven language groups, released openly on Hugging Face under CC-BY 4.0.</span></li>
+        <li><strong>Published benchmarks</strong><span>Before and after error rates for a speech model fine-tuned on the data, so the gain is measured.</span></li>
+        <li><strong>A replication kit</strong><span>Everything a team in Kampala, Dar es Salaam or Kigali needs to run the same thing for their languages.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <h2>How a clip becomes data</h2>
+      <div class="how">
+        <ol class="steps">
+          <li><span class="n" aria-hidden="true">1</span><div><h3>Sign up with a phone number</h3><p>We ask for a phone number and the languages you speak, nothing else. A wallet is created in the browser, and prompts never ask for personal details.</p></div></li>
+          <li><span class="n" aria-hidden="true">2</span><div><h3>Record or transcribe</h3><p>Read short prompts aloud in your language, or type what you hear in someone else’s clip. Each clip lasts a few seconds.</p></div></li>
+          <li><span class="n" aria-hidden="true">3</span><div><h3>Three speakers check it</h3><p>A clip counts once three other native speakers confirm it is clear and matches its text. Disputed clips go to a language lead.</p></div></li>
+          <li><span class="n" aria-hidden="true">4</span><div><h3>Get paid every week</h3><p>A validated clip earns two US cents in USDC, and checking clips earns too. Contributors claim their earnings each week to their own wallet.</p></div></li>
+          <li><span class="n" aria-hidden="true">5</span><div><h3>Released to everyone</h3><p>Validated clips join regular open releases on Hugging Face, each with a datasheet, a licence and a benchmark. The first release lands by month six.</p></div></li>
+        </ol>
+        <figure class="receipt">
+          <figcaption>Example clip record</figcaption>
+          <dl>
+            <div class="row"><dt>Clip</dt><dd>No. 184</dd></div>
+            <div class="row"><dt>Language</dt><dd>Dholuo</dd></div>
+            <div class="row"><dt>Length</dt><dd>4.8 seconds</dd></div>
+            <div class="row"><dt>Checks</dt><dd>3 of 3 passed</dd></div>
+            <div class="row"><dt>Consent</dt><dd>Given in the app</dd></div>
+            <div class="row"><dt>Fingerprint</dt><dd class="fp">9f2c71e4…a0b41e3d</dd></div>
+            <div class="row"><dt>Paid</dt><dd>0.02 USDC</dd></div>
+          </dl>
+          <p class="note">Only the fingerprint, the consent record and the payment go on Solana. The audio stays in storage, and no personal details are ever written on-chain.</p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="solana" class="alt">
+    <div class="wrap">
+      <h2>Built on Solana, for the public good</h2>
+      <p class="intro">The Solana Foundation funds projects against four tests. This is how Sauti meets each one.</p>
+      <div class="tests">
+        <article>
+          <h3>Public good</h3>
+          <p>The dataset, the code and every benchmark are free to use. Start-ups, universities, call centres, hospitals and county governments can build voice tools for Kenyans without paying for data.</p>
+        </article>
+        <article>
+          <h3>Open source</h3>
+          <p>The app, the Solana program and the validation tools are published on GitHub from the first month under an open licence, with a kit for other countries to copy.</p>
+        </article>
+        <article>
+          <h3>Only possible on Solana</h3>
+          <p>A validated clip pays two US cents. Mobile money fees make payments that small uneconomic to send one at a time. On Solana, recording a clip and paying for it costs a fraction of a cent.</p>
+          <p>When a company licenses a curated dataset, the program splits the fee among every contributor whose clips it contains. The consent and fingerprint log is public: anyone can check it and nobody can quietly rewrite it.</p>
+          <p>Languages also cross borders where mobile money mostly does not, so Somali and Dholuo speakers in neighbouring countries are paid the same way.</p>
+        </article>
+        <article>
+          <h3>Clear use of funds</h3>
+          <p>More than half of the USD 75,000 goes to contributors and to the specialists who check and benchmark their work. Funds are released per milestone, and every milestone is measured in validated hours that anyone can count.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="milestones">
+    <div class="wrap">
+      <h2>Nine months, three milestones</h2>
+      <p class="intro">Funds are released one milestone at a time, and each milestone is measured in validated hours.</p>
+      <figure class="hours">
+        <figcaption>Validated hours, cumulative</figcaption>
+        <div class="cols">
+          <div><div class="plot"><div class="bar" style="--h:150"><b>150</b></div></div><span class="xl">Month 3</span></div>
+          <div><div class="plot"><div class="bar" style="--h:600"><b>600</b></div></div><span class="xl">Month 6</span></div>
+          <div><div class="plot"><div class="bar" style="--h:1200"><b>1,200</b></div></div><span class="xl">Month 9</span></div>
+        </div>
+      </figure>
+      <ol class="mlist">
+        <li>
+          <span class="when">Milestone 1, months 1 to 3</span>
+          <h3>Live and paying</h3>
+          <ul>
+            <li>App and validation flow live</li>
+            <li>Solana program on mainnet, paying in USDC</li>
+            <li>2,000 contributors, 150 validated hours</li>
+            <li>First datasheet published</li>
+          </ul>
+        </li>
+        <li>
+          <span class="when">Milestone 2, months 4 to 6</span>
+          <h3>First open release</h3>
+          <ul>
+            <li>8,000 contributors, 600 validated hours</li>
+            <li>First open release on Hugging Face</li>
+            <li>Fine-tuned model with before and after error rates</li>
+            <li>One licence sale split to contributors on-chain</li>
+          </ul>
+        </li>
+        <li>
+          <span class="when">Milestone 3, months 7 to 9</span>
+          <h3>Seven languages, 1,200 hours</h3>
+          <ul>
+            <li>20,000 contributors, 1,200 validated hours</li>
+            <li>All seven language groups covered</li>
+            <li>Second open release and two paid licence deals</li>
+            <li>Replication kit published</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="budget" class="alt">
+    <div class="wrap">
+      <h2>Budget: USD 75,000</h2>
+      <p class="intro">Released in three tranches, one per milestone. More than half, 52 percent, goes to contributors and the specialists who check and benchmark their work.</p>
+      <table class="budget">
+        <caption class="sr">Budget lines in US dollars, largest first</caption>
+        <thead>
+          <tr><th scope="col">Line</th><th scope="col" class="num">USD</th></tr>
+        </thead>
+        <tbody>
+          <tr class="lead"><th scope="row">Contributor rewards pool<span class="desc">Two US cents per validated clip, plus pay for checking. About 1,200 hours.</span><span class="fill" style="--v:28000" aria-hidden="true"></span></th><td class="num">28,000</td></tr>
+          <tr><th scope="row">Founder development, nine months<span class="desc">Product, build, operations and delivery.</span><span class="fill" style="--v:16000" aria-hidden="true"></span></th><td class="num">16,000</td></tr>
+          <tr><th scope="row">AI model credits and developer tooling<span class="desc">AI models and tools used to build, test and run the platform.</span><span class="fill" style="--v:7000" aria-hidden="true"></span></th><td class="num">7,000</td></tr>
+          <tr><th scope="row">ML engineer, part time<span class="desc">Fine-tuning and benchmarks, from month 3.</span><span class="fill" style="--v:7000" aria-hidden="true"></span></th><td class="num">7,000</td></tr>
+          <tr><th scope="row">Validation and community lead, part time<span class="desc">Validator pools for each language and fraud audits.</span><span class="fill" style="--v:4000" aria-hidden="true"></span></th><td class="num">4,000</td></tr>
+          <tr><th scope="row">GPU compute<span class="desc">Training and evaluating the benchmark models.</span><span class="fill" style="--v:3500" aria-hidden="true"></span></th><td class="num">3,500</td></tr>
+          <tr><th scope="row">Storage, hosting, RPC and SMS<span class="desc">Audio storage, servers, Solana RPC and sign-up codes.</span><span class="fill" style="--v:3000" aria-hidden="true"></span></th><td class="num">3,000</td></tr>
+          <tr><th scope="row">Development hardware<span class="desc">Build and test machine.</span><span class="fill" style="--v:2500" aria-hidden="true"></span></th><td class="num">2,500</td></tr>
+          <tr><th scope="row">Legal and data protection<span class="desc">ODPC registration, consent terms and licence templates.</span><span class="fill" style="--v:2000" aria-hidden="true"></span></th><td class="num">2,000</td></tr>
+          <tr><th scope="row">Contingency<span class="desc">Held for overruns.</span><span class="fill" style="--v:2000" aria-hidden="true"></span></th><td class="num">2,000</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><th scope="row">Total</th><td class="num">75,000</td></tr>
+        </tfoot>
+      </table>
+    </div>
+  </section>
+
+  <section id="after">
+    <div class="wrap split">
+      <h2>After the grant</h2>
+      <div>
+        <p>The open dataset and all the code stay free. Keeyo Digital Solutions keeps Sauti running by licensing curated, domain-specific datasets, such as call centre, fintech and agriculture speech, to AI labs and outsourcing firms.</p>
+        <p>Every licence fee is split on-chain to the contributors whose clips it contains, so the people who made the data keep earning from it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="safeguards" class="alt">
+    <div class="wrap">
+      <h2>Safeguards</h2>
+      <dl class="guards">
+        <div><dt>Data protection</dt><dd>Built to Kenya’s Data Protection Act, 2019: registration with the Office of the Data Protection Commissioner, plain-language consent, a clear way to withdraw, and no personal data on-chain.</dd></div>
+        <div><dt>Fraud</dt><dd>Phone-verified accounts, three independent checks per clip, rate limits, reputation scores, random audits, and clawback of unclaimed rewards on confirmed fraud.</dd></div>
+        <div><dt>Quality</dt><dd>Native-speaker validators for every language, and a benchmark published with every release, so quality is measured rather than claimed.</dd></div>
+        <div><dt>Money</dt><dd>Contributors hold their own wallets and cash out through licensed providers. Keeyo never holds contributor funds.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="team">
+    <div class="wrap">
+      <h2>Team</h2>
+      <div class="team">
+        <div>
+          <h3>Peter Kahenya</h3>
+          <p class="role">Founder, Keeyo Digital Solutions</p>
+          <p>Leads product, the build and delivery. Ten years running large field operations and digital governance programmes in telecoms across five African markets, now building AI and payments products in Nairobi.</p>
+          <p>Speaks English, Swahili, Kikuyu and Sheng. MSc Operations and Technology Management, University of Nairobi (in progress).</p>
+          <p class="links"><a href="https://www.linkedin.com/in/petekahenya">LinkedIn</a></p>
+        </div>
+        <div>
+          <h3>Roles the grant funds</h3>
+          <ul class="roles">
+            <li><strong>ML engineer, part time from month 3</strong><span>Fine-tunes models on the data and publishes the benchmarks.</span></li>
+            <li><strong>Validation and community lead, part time</strong><span>Builds native-speaker validator pools for each language and runs fraud audits.</span></li>
+            <li><strong>Legal counsel, fixed fee</strong><span>Data protection registration, consent terms and licence templates.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="chain" class="alt">
+    <div class="wrap">
+      <h2>On Solana</h2>
+      <p class="intro">Every address here can be checked on Solana Explorer.</p>
+      <dl class="chain">
+        <div data-row="programId" hidden><dt>Program (devnet, v0)</dt><dd><a href="#"></a></dd></div>
+        <div data-row="treasury" hidden><dt>Treasury and fee payer</dt><dd><a href="#"></a></dd></div>
+        <div><dt>Reward token</dt><dd>USDC, <a href="https://explorer.solana.com/address/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v">EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v</a></dd></div>
+      </dl>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="motto" lang="sw">Sauti ya wengi.</p>
+    <p class="motto-en">The voice of many.</p>
+    <p class="legal">Sauti is a project of Keeyo Digital Solutions Ltd, registered in the Republic of Kenya.</p>
+    <p class="legal"><a href="mailto:hello@keeyow.com">hello@keeyow.com</a></p>
+    <p class="legal">© 2026 Keeyo Digital Solutions Ltd</p>
+  </div>
+</footer>
+
+<script>
+/* Fill these in as they go live. Anything left empty stays hidden on the page. */
+var SAUTI_LINKS = {
+  github: "https://github.com/pkahenya/sauti",
+  programId: "",  /* devnet program ID from Solana Playground */
+  treasury: ""    /* Sauti Treasury wallet address from Phantom */
+};
+
+(function () {
+  var gh = document.querySelector('[data-link="github"]');
+  if (SAUTI_LINKS.github) { gh.href = SAUTI_LINKS.github; gh.hidden = false; }
+  [["programId", "?cluster=devnet"], ["treasury", ""]].forEach(function (pair) {
+    var value = SAUTI_LINKS[pair[0]];
+    if (!value) return;
+    var row = document.querySelector('[data-row="' + pair[0] + '"]');
+    var link = row.querySelector("a");
+    link.href = "https://explorer.solana.com/address/" + encodeURIComponent(value) + pair[1];
+    link.textContent = value;
+    row.hidden = false;
+  });
+
+  var langs = [
+    ["Sheng", "Nairobi’s street language, built mostly on Swahili and English and reinvented by every generation."],
+    ["Kikuyu", "Spoken across central Kenya, and in towns and cities nationwide."],
+    ["Dholuo", "Spoken around Lake Victoria, in western Kenya and northern Tanzania."],
+    ["Luhya", "A family of closely related dialects from western Kenya."],
+    ["Kalenjin", "A group of closely related languages from the Rift Valley."],
+    ["Somali", "Spoken across north-eastern Kenya and the Horn of Africa."],
+    ["Kenyan English", "English as Kenyans speak it, with Kenyan accents, Kenyan words and constant code-switching."]
+  ];
+  var dial = document.querySelector(".dial");
+  var group = dial.querySelector(".stations");
+  var stations = Array.prototype.slice.call(dial.querySelectorAll(".station"));
+  var nameEl = document.getElementById("lang-name");
+  var noteEl = document.getElementById("lang-note");
+  var current = 0;
+
+  function tune(i, focus) {
+    current = (i + langs.length) % langs.length;
+    dial.style.setProperty("--i", current);
+    stations.forEach(function (s, k) {
+      var on = k === current;
+      s.setAttribute("aria-checked", on ? "true" : "false");
+      s.tabIndex = on ? 0 : -1;
+    });
+    nameEl.textContent = langs[current][0];
+    noteEl.textContent = langs[current][1];
+    if (focus) stations[current].focus();
+  }
+
+  stations.forEach(function (s, k) { s.addEventListener("click", function () { tune(k); }); });
+  group.addEventListener("keydown", function (e) {
+    var keys = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+    if (keys[e.key]) { e.preventDefault(); tune(current + keys[e.key], true); }
+    else if (e.key === "Home") { e.preventDefault(); tune(0, true); }
+    else if (e.key === "End") { e.preventDefault(); tune(langs.length - 1, true); }
+  });
+  document.getElementById("prev").addEventListener("click", function () { tune(current - 1); });
+  document.getElementById("next").addEventListener("click", function () { tune(current + 1); });
+
+  /* One moment of motion: the needle sweeps across the band and settles on Sheng. */
+  var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (still) { dial.classList.add("live"); return; }
+  dial.style.setProperty("--i", langs.length - 0.5);
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      dial.classList.add("live");
+      setTimeout(function () { tune(0); }, 250);
+    });
+  });
+})();
+</script>
+</body>
+</html>

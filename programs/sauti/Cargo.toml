@@ -1,0 +1,28 @@
+[package]
+name = "sauti"
+version = "0.1.0"
+description = "Sauti v0: contributor registry and clip fingerprint log on Solana"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/pkahenya/sauti"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "sauti"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build"]
+anchor-debug = []
+custom-heap = []
+custom-panic = []
+
+[dependencies]
+anchor-lang = "0.30.1"
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(target_os, values("solana"))'] }

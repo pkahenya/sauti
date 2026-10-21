@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Blocks commits that contain secrets or files that must never be public.
+# Turn it on once per clone with: git config core.hooksPath .githooks
+set -euo pipefail
+
+blocked='(^|/)(\.env(\..*)?|id\.json|[^/]*keypair[^/]*\.json|[^/]*\.(pem|key|p12|pfx|db|sqlite|sqlite3|log|dump|sql)|ecosystem\.config\.c?js|\.git-credentials|\.netrc|\.npmrc)$'
+bad=$(git diff --cached --name-only --diff-filter=ACMR | grep -E "$blocked" | grep -vE '(^|/)\.env\.example$' || true)
+if [ -n "$bad" ]; then
+  echo "Commit blocked. These files must never go into this public repository:"
+  echo "$bad"
+  exit 1
+fi
+
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "Commit blocked: gitleaks is not installed, so the secret scan could not run."
+  echo "Install it from https://github.com/gitleaks/gitleaks/releases and commit again."
+  exit 1
+fi
+
+gitleaks git --staged --no-banner --redact --config .gitleaks.toml

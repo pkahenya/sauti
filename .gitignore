@@ -1,0 +1,41 @@
+# Build output
+target/
+.anchor/
+node_modules/
+test-ledger/
+dist/
+
+# Secrets and keys: never commit these
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id.json
+*keypair*.json
+.git-credentials
+.netrc
+.npmrc
+
+# Server and app config that often holds secrets
+ecosystem.config.js
+ecosystem.config.cjs
+*.local.*
+
+# Data and logs: may hold personal data
+*.db
+*.sqlite
+*.sqlite3
+*.log
+logs/
+data/
+backups/
+*.dump
+*.sql
+*.csv
+
+# System files
+.DS_Store
+Thumbs.db
