@@ -4,7 +4,7 @@ Open voice data for Kenya's languages, recorded by the people who speak them.
 
 Sauti pays people to record and check short voice clips in Sheng, Kikuyu, Dholuo, Luhya, Kalenjin, Somali and Kenyan English. Each validated clip earns two US cents in USDC, and its consent record and audio fingerprint are written to Solana. The finished dataset is released openly, free for anyone to use.
 
-**Project page:** https://www.keeyow.com/sauti/
+**Project page:** https://pkahenya.github.io/sauti/
 
 **Status:** pre-launch. This repository holds the v0 Solana program, the architecture and the project page. The contributor app, validation service and release pipeline arrive in milestone 1.
 
@@ -30,7 +30,7 @@ Only fingerprints, consent records and payments. Audio stays in storage, and no 
 |---|---|
 | `programs/sauti` | The Solana program (Anchor), v0 |
 | `docs/architecture.md` | How the app, validation, storage, Solana program and releases fit together |
-| `site/` | The project page served at keeyow.com/sauti |
+| `site/` | The project page, published by GitHub Pages at pkahenya.github.io/sauti |
 
 ## The Solana program (v0)
 
@@ -61,7 +61,7 @@ Or open [Solana Playground](https://beta.solpg.io), create an Anchor project, an
 | 2. First open release | 4 to 6 | USD 25,000 | 8,000 contributors, 600 validated hours, first release on Hugging Face, fine-tuned model released openly with before and after error rates, one licence sale split on-chain |
 | 3. Seven languages | 7 to 9 | USD 30,000 | 20,000 contributors, 1,200 validated hours across seven language groups, second release, two paid licence deals, replication kit |
 
-The full plan and budget are on the [project page](https://www.keeyow.com/sauti/).
+The full plan and budget are on the [project page](https://pkahenya.github.io/sauti/).
 
 ## Security
 
